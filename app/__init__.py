@@ -4,8 +4,8 @@ from alembic import command
 from alembic import config as alembic_config
 from flask import Flask
 
-from .config import Config
-from .db import db
+from app.config import Config
+from app.db import db
 
 
 def create_app():

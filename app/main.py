@@ -1,4 +1,4 @@
-from . import create_app, run_migrations
+from app import create_app, run_migrations
 
 app = create_app()
 
