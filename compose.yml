@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: test-flask-postgres
+    volumes:
+      - ./data-postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=test-flask-app
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    restart: unless-stopped
