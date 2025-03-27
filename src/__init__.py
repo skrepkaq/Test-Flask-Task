@@ -1,3 +1,7 @@
+import os
+
+from alembic import command
+from alembic import config as alembic_config
 from flask import Flask
 
 from .config import Config
@@ -15,3 +19,9 @@ def create_app():
     app.register_blueprint(sales.sales_bp, url_prefix='/sales')
 
     return app
+
+
+def run_migrations():
+    alembic_cfg = alembic_config.Config(os.path.join(os.path.dirname(__file__), "../alembic.ini"))
+
+    command.upgrade(alembic_cfg, "head")
