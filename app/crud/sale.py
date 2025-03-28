@@ -4,6 +4,7 @@ from sqlalchemy import desc
 from sqlalchemy.orm import selectinload
 from sqlalchemy.sql import func
 
+from app.crud.base import db_add
 from app.db import db
 from app.model import Product, Sale
 
@@ -45,3 +46,15 @@ def top_products_by_period(start_date: datetime, end_date: datetime, limit: int)
         .all()
     )
     return products
+
+
+def create(product_id: int, count: int = 1, date: datetime | None = None) -> Sale:
+    """Создание продажи
+
+    :param product_id: ID товара
+    :param count: Кол-во
+    :param date: Дата
+    :return: Продажа
+    """
+
+    return db_add(Sale(product_id=product_id, count=count, date=date or datetime.now()))

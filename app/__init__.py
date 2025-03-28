@@ -21,7 +21,8 @@ def create_app():
     return app
 
 
-def run_migrations():
-    alembic_cfg = alembic_config.Config(os.path.join(os.path.dirname(__file__), "../alembic.ini"))
+def run_migrations(app: Flask):
+    with app.app_context():
+        alembic_cfg = alembic_config.Config(os.path.join(os.path.dirname(__file__), '../alembic.ini'))
 
-    command.upgrade(alembic_cfg, "head")
+        command.upgrade(alembic_cfg, 'head')

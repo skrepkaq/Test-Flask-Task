@@ -1,5 +1,6 @@
 from sqlalchemy.orm import joinedload
 
+from app.crud.base import db_add, db_delete
 from app.db import db
 from app.model import Product
 
@@ -22,10 +23,7 @@ def create(name: str, category_id: int) -> Product:
     :return: Товар
     """
 
-    product = Product(name=name, category_id=category_id)
-    db.session.add(product)
-    db.session.commit()
-    return product
+    return db_add(Product(name=name, category_id=category_id))
 
 
 def update(product: Product, name: str | None = None, category_id: int | None = None) -> Product:
@@ -40,12 +38,10 @@ def update(product: Product, name: str | None = None, category_id: int | None = 
         product.name = name
     if category_id:
         product.category_id = category_id
-    db.session.add(product)
-    db.session.commit()
-    return product
+
+    return db_add(product)
 
 
 def delete(product: Product):
     """Удаление товара"""
-    db.session.delete(product)
-    db.session.commit()
+    db_delete(product)
