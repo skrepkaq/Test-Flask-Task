@@ -1,24 +1,68 @@
-from flask import Blueprint
+from datetime import datetime, timedelta
+
+from flask import Blueprint, request
+
+from app import crud
+from app.misc import response
 
 sales_bp = Blueprint('sales', __name__)
 
 
 @sales_bp.route('/total', methods=['GET'])
 def total_sales():
-    """Получить сумму продаж за период
+    """Получение кол-ва продаж за период
 
     :param start_date: Дата начала периода
     :param end_date: Дата окончания периода
     """
-    pass
+
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+
+    if not (start_date and end_date):
+        return response(error='Указаны не все параметры (start_date, end_date)')
+
+    try:
+        date_format = "%Y-%m-%d"
+        start_date = datetime.strptime(start_date, date_format)
+        end_date = datetime.strptime(end_date, date_format) + timedelta(days=1)
+    except ValueError:
+        return response(error='Дата не соответствует формату YYYY-MM-DD')
+
+    sales_count = crud.sale.get_count_by_period(start_date, end_date)
+
+    return response(result=sales_count)
 
 
 @sales_bp.route('/top-products', methods=['GET'])
 def top_products():
-    """Получить топ-N самых продаваемых товаров за период
+    """Получение самых продаваемых товаров за период
 
     :param start_date: Дата начала периода
     :param end_date: Дата окончания периода
     :param limit: Кол-во товаров
     """
-    pass
+
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+    limit = request.args.get('limit', type=int)
+
+    if not (start_date and end_date and limit):
+        return response(error='Указаны не все параметры (start_date, end_date, limit)')
+
+    try:
+        date_format = "%Y-%m-%d"
+        start_date = datetime.strptime(start_date, date_format)
+        end_date = datetime.strptime(end_date, date_format) + timedelta(days=1)
+    except ValueError:
+        return response(error='Дата не соответствует формату YYYY-MM-DD')
+
+    products = crud.sale.top_products_by_period(start_date, end_date, limit)
+
+    return response(
+        result=[
+            {'product': p.Product.to_dict(),
+             'count': p.count}
+            for p in products
+        ]
+    )

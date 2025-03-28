@@ -15,8 +15,8 @@ def create_app():
     db.init_app(app)
 
     from .blueprints import product, sales
-    app.register_blueprint(product.product_bp, url_prefix='/products')
-    app.register_blueprint(sales.sales_bp, url_prefix='/sales')
+    app.register_blueprint(product.product_bp, url_prefix='/api/products')
+    app.register_blueprint(sales.sales_bp, url_prefix='/api/sales')
 
     return app
 

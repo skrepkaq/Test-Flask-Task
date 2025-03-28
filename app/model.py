@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import List
 
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -15,7 +14,7 @@ class ProductCategory(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(255), unique=True)
 
-    products: Mapped[List["Product"]] = relationship(
+    products: Mapped[list["Product"]] = relationship(
             back_populates="category", cascade="all, delete-orphan"
     )
 
@@ -30,9 +29,16 @@ class Product(db.Model):
 
     category: Mapped['ProductCategory'] = relationship(back_populates="products")
 
-    sales: Mapped[List["Sale"]] = relationship(
+    sales: Mapped[list["Sale"]] = relationship(
             back_populates="product", cascade="all, delete-orphan"
     )
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "category": self.category.name
+        }
 
 
 class Sale(db.Model):
