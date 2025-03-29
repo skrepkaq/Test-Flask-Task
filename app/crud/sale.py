@@ -9,6 +9,11 @@ from app.db import db
 from app.model import Product, Sale
 
 
+def get_all() -> list[Sale]:
+    """Получение всех скидок"""
+    return db.session.query(Sale).all()
+
+
 def get_count_by_period(start_date: datetime, end_date: datetime) -> int:
     """Получение кол-ва продаж за период
 

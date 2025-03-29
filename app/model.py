@@ -48,6 +48,7 @@ class Sale(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     product_id: Mapped[int] = mapped_column(ForeignKey("product.id"))
     count: Mapped[int]
+    discount: Mapped[float] = mapped_column(server_default='1.0')
     date: Mapped[datetime] = mapped_column(server_default=func.now())
 
     product: Mapped['Product'] = relationship(back_populates="sales")
