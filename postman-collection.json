@@ -57,14 +57,14 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{base-url}}/api/products/41?name=Сломанный проектор&category_id=5",
+					"raw": "{{base-url}}/api/products/43?name=Сломанный проектор&category_id=5",
 					"host": [
 						"{{base-url}}"
 					],
 					"path": [
 						"api",
 						"products",
-						"41"
+						"43"
 					],
 					"query": [
 						{
