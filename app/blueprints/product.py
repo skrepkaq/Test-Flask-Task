@@ -1,12 +1,14 @@
 from flask import Blueprint, request
 
-from app import crud
+from app import cache, crud
+from app.cache import Tables
 from app.misc import response
 
 product_bp = Blueprint('product', __name__)
 
 
 @product_bp.route('', methods=['GET'])
+@cache.api_decorator([Tables.PRODUCT, Tables.PRODUCT_CATEGORY])
 def get_products():
     """Получение списка всех товаров"""
     products = crud.product.get_all()
@@ -15,6 +17,7 @@ def get_products():
 
 
 @product_bp.route('', methods=['POST'])
+@cache.api_decorator([Tables.PRODUCT])
 def create_product():
     """Создание нового товара
 
@@ -34,6 +37,7 @@ def create_product():
 
 
 @product_bp.route('/<int:product_id>', methods=['PUT'])
+@cache.api_decorator([Tables.PRODUCT])
 def update_product(product_id: int):
     """Обновление товара
 
@@ -58,6 +62,7 @@ def update_product(product_id: int):
 
 
 @product_bp.route('/<int:product_id>', methods=['DELETE'])
+@cache.api_decorator([Tables.PRODUCT])
 def delete_product(product_id: int):
     """Удаление товара"""
     if not (product := crud.product.get(product_id)):

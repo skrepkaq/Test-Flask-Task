@@ -2,13 +2,15 @@ from datetime import datetime, timedelta
 
 from flask import Blueprint, request
 
-from app import crud
+from app import cache, crud
+from app.cache import Tables
 from app.misc import response
 
 sales_bp = Blueprint('sales', __name__)
 
 
 @sales_bp.route('/total', methods=['GET'])
+@cache.api_decorator([Tables.SALE, Tables.PRODUCT, Tables.PRODUCT_CATEGORY])
 def total_sales():
     """Получение кол-ва продаж за период
 
@@ -35,6 +37,7 @@ def total_sales():
 
 
 @sales_bp.route('/top-products', methods=['GET'])
+@cache.api_decorator([Tables.SALE, Tables.PRODUCT, Tables.PRODUCT_CATEGORY])
 def top_products():
     """Получение самых продаваемых товаров за период
 
