@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "02087a0f-bd35-4c47-ab2c-84aaa90875e3",
+		"name": "Test-app-flask",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/api/products",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/api/products?name=Проектор&category_id=1",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Проектор"
+						},
+						{
+							"key": "category_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/api/products/41?name=Сломанный проектор&category_id=5",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"41"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Сломанный проектор"
+						},
+						{
+							"key": "category_id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/api/products/43",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"43"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sales total",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/api/sales/total?start_date=2025-01-01&end_date=2025-12-31",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"total"
+					],
+					"query": [
+						{
+							"key": "start_date",
+							"value": "2025-01-01"
+						},
+						{
+							"key": "end_date",
+							"value": "2025-12-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sales top products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}/api/sales/top-products?start_date=2025-01-01&end_date=2025-12-31&limit=10",
+					"host": [
+						"{{base-url}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"top-products"
+					],
+					"query": [
+						{
+							"key": "start_date",
+							"value": "2025-01-01"
+						},
+						{
+							"key": "end_date",
+							"value": "2025-12-31"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base-url",
+			"value": "http://localhost:5000",
+			"type": "default"
+		}
+	]
+}
