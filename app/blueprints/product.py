@@ -62,7 +62,7 @@ def update_product(product_id: int):
 
 
 @product_bp.route('/<int:product_id>', methods=['DELETE'])
-@cache.api_decorator([Tables.PRODUCT])
+@cache.api_decorator([Tables.PRODUCT, Tables.SALE])
 def delete_product(product_id: int):
     """Удаление товара"""
     if not (product := crud.product.get(product_id)):
