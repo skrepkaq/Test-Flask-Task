@@ -1,4 +1,14 @@
 services:
+  app:
+    build: .
+    container_name: test-flask
+    ports:
+      - 5000:5000
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_HOST=postgres
+    restart: unless-stopped
   postgres:
     image: postgres:14-alpine
     container_name: test-flask-postgres
